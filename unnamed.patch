@@ -1,0 +1,34 @@
+Index: src/com/company/MainMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/MainMenu.java b/src/com/company/MainMenu.java
+--- a/src/com/company/MainMenu.java	(revision 06bb6834ecf3740b204272807b526e45feeda8f0)
++++ b/src/com/company/MainMenu.java	(date 1625326961547)
+@@ -37,7 +37,7 @@
+                 myWriter.write("Име на служител     :" + emp.name + "\n" +
+                         "ЕГН :" + emp.employ_id + "\n" + "Заявка номер :" + emp.request_number + "\n" +
+                         "E-mail :" + emp.email + "\n" + "Тип отпуск: " + emp.type + "\n" +
+-                        "От дата - до дата   :" + emp.validity + "\n" + "Статус: " + emp.status);
++                        "От дата - до дата :" + emp.validity + "\n" + "Статус: " + emp.status);
+                 myWriter.close();
+                 System.out.println("\n Заявлението е въведено :)\n");
+ 
+@@ -70,7 +70,6 @@
+             employ_id = sc.nextLong();
+             System.out.print("Въведи e-mail: ");
+             email = sc.nextLine();
+-            email = sc.nextLine();
+             System.out.print("Тип отпуск (платен или неплатен): ");
+             type = sc.nextLine();
+             System.out.print("От дата - до дата (dd.mm.yy) : ");
+@@ -119,7 +118,7 @@
+ class EmployManagementSystem {
+     public static void main(String arv[]) {
+         /** To clear the output Screen **/
+-        //      System.out.print("\033[H\033[2J");
++         System.out.print("\033[H\033[2J");
+ 
+         Scanner sc = new Scanner(System.in);
+         Employee_Show epv = new Employee_Show();
