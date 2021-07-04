@@ -31,25 +31,26 @@ class Leave_Add {
         EmployDetail emp = new EmployDetail();
         emp.getInfo();
         try {
-            File f1 = new File("file" + emp.name + ".txt");
-            if (f1.createNewFile()) {
-                FileWriter myWriter = new FileWriter("file" + emp.name + ".txt");
-                myWriter.write("Име на служител     :" + emp.name + "\n" +
-                        "ЕГН :" + emp.employ_id + "\n" + "Заявка номер :" + emp.request_number + "\n" +
-                        "E-mail :" + emp.email + "\n" + "Тип отпуск: " + emp.type + "\n" +
-                        "От дата - до дата :" + emp.validity + "\n" + "Статус: " + emp.status);
-                myWriter.close();
-                System.out.println("\n Заявлението е въведено :)\n");
+            File f1 = new File("file" + emp.name + ".csv");
+                if (f1.createNewFile()) {
+                    FileWriter myWriter = new FileWriter("file" + emp.name + ".csv");
+                    myWriter.write("Име на служител :" + emp.name + "\n" +
+                            "ЕГН :" + emp.employ_id + "\n" + "Заявка номер :" + emp.request_number++ + "\n" +
+                            "E-mail :" + emp.email + "\n" + "Тип отпуск: " + emp.type + "\n" +
+                            "От дата - до дата :" + emp.validity + "\n" + "Статус: " + emp.status);
+                    myWriter.close();
+                    System.out.println("\n Заявлението е въведено :)\n");
 
-                System.out.print("\nНатисни Enter за продължение...");
-                sc.nextLine();
-            } else {
-                System.out.println("\nЗаявлението вече съществува :(");
-                System.out.print("\nНатисни Enter за да продължиш");
-                sc.nextLine();
-            }
+                    System.out.print("\nНатисни Enter за продължение...");
+                    sc.nextLine();
+                } else {
+                    System.out.println("\nЗаявлението вече съществува :(");
+                    System.out.print("\nНатисни Enter за да продължиш");
+                    sc.nextLine();
+                }
+
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Грешка при въвеждането");
         }
     }
 
@@ -59,7 +60,7 @@ class Leave_Add {
         String type;
         long employ_id;
         String validity;
-        String request_number;
+        long request_number=11;
         String status = "Очаква одобрение";
 
         public void getInfo() {
@@ -69,6 +70,7 @@ class Leave_Add {
             System.out.print("Въведи ЕГН : ");
             employ_id = sc.nextLong();
             System.out.print("Въведи e-mail: ");
+            email = sc.nextLine();
             email = sc.nextLine();
             System.out.print("Тип отпуск (платен или неплатен): ");
             type = sc.nextLine();
@@ -80,7 +82,7 @@ class Leave_Add {
 
 class Employee_Show {
     public void viewFile(String s) throws Exception {
-        File file = new File("file" + s + ".txt");
+        File file = new File("file" + s + ".csv");
         Scanner sc = new Scanner(file);
 
         while (sc.hasNextLine()) {
@@ -91,13 +93,13 @@ class Employee_Show {
 
 class Employee_Update {
     public void updateFile(String s, String o, String n) throws IOException {
-        File file = new File("file" + s + ".txt");
+        File file = new File("file" + s + ".csv");
         Scanner sc = new Scanner(file);
         String fileContext = "";
         while (sc.hasNextLine()) {
             fileContext = fileContext + "\n" + sc.nextLine();
         }
-        FileWriter myWriter = new FileWriter("file" + s + ".txt");
+        FileWriter myWriter = new FileWriter("file" + s + ".csv");
         fileContext = fileContext.replaceAll(o, n);
         myWriter.write(fileContext);
         myWriter.close();
@@ -118,7 +120,7 @@ class CodeExit {
 class EmployManagementSystem {
     public static void main(String arv[]) {
         /** To clear the output Screen **/
-         System.out.print("\033[H\033[2J");
+        System.out.print("\033[H\033[2J");
 
         Scanner sc = new Scanner(System.in);
         Employee_Show epv = new Employee_Show();
@@ -149,13 +151,17 @@ class EmployManagementSystem {
                 case 2: {
 
 
-                    File file = new File("file*.txt");
-                    Scanner sc = new Scanner(file);
+                    String s = "all";
+                    try {
+                        epv.viewFile(s);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
 
 
                     System.out.print("\nНатисни Enter за да продължиш");
                     sc.nextLine();
-                    System.out.print("2\033[H\033[2J");
+                    System.out.print("\033[H\033[2J");
                     obj1.menu();
                     break;
                 }
